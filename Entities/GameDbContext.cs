@@ -22,16 +22,7 @@ public class GameDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // TODO add other limits (length etc.)
-        modelBuilder.Entity<Room>().HasKey(e => e.RoomId);
-        modelBuilder.Entity<Player>().HasKey(e => e.PlayerId);
-        modelBuilder.Entity<Squad>().HasKey(e => e.SquadId);
-        modelBuilder.Entity<SquadVote>().HasKey(e => e.SquadVoteId);
-        modelBuilder.Entity<QuestVote>().HasKey(e => e.QuestVoteId);
-        modelBuilder.Entity<Assassination>().HasKey(e => e.AssassinationId);
-        modelBuilder.Entity<Membership>()
-            .HasKey(m => new { m.SquadId, m.PlayerId });
-
+        addPrimaryKeys(modelBuilder);
 
         addRoomOneToMany(modelBuilder);
         addLeaderOneToMany(modelBuilder);
@@ -40,6 +31,24 @@ public class GameDbContext : DbContext
         addAllVotesRelations(modelBuilder);
         addMembershipManyToMany(modelBuilder);
         addAssassinationOneToOne(modelBuilder);
+
+        // TODO add other limits (length etc.) (maybe not necessary, as nick is the only thing in DB modifiable by users)
+        modelBuilder.Entity<Player>()
+                .Property(p => p.Nick)
+                .HasMaxLength(20);
+                
+    }
+
+    private static void addPrimaryKeys(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Room>().HasKey(e => e.RoomId);
+        modelBuilder.Entity<Player>().HasKey(e => e.PlayerId);
+        modelBuilder.Entity<Squad>().HasKey(e => e.SquadId);
+        modelBuilder.Entity<SquadVote>().HasKey(e => e.SquadVoteId);
+        modelBuilder.Entity<QuestVote>().HasKey(e => e.QuestVoteId);
+        modelBuilder.Entity<Assassination>().HasKey(e => e.AssassinationId);
+        modelBuilder.Entity<Membership>()
+            .HasKey(m => new { m.SquadId, m.PlayerId });
     }
 
     private static void addRoomOneToMany(ModelBuilder modelBuilder)
