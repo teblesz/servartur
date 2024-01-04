@@ -32,7 +32,7 @@ public class GameDbContext : DbContext
         addMembershipManyToMany(modelBuilder);
         addAssassinationOneToOne(modelBuilder);
 
-        // TODO add other limits (length etc.) (maybe not necessary, as nick is the only thing in DB modifiable by users)
+        // TODO add other limits (length, required, etc.) (maybe not necessary, as nick is the only thing in DB modifiable by users)
         modelBuilder.Entity<Player>()
                 .Property(p => p.Nick)
                 .HasMaxLength(20);
