@@ -1,6 +1,7 @@
 using Microsoft.OpenApi.Models;
 using servartur;
 using servartur.Entities;
+using servartur.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddDbContext<GameDbContext>();
 builder.Services.AddScoped<DbSeeder>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddScoped<IMatchupService, MatchupService>();
 
 var app = builder.Build();
 
