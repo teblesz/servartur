@@ -6,9 +6,9 @@ public class Player
     public int PlayerId { get; set; }
     //public int UserFid { get; set; }
     [StringLength(maximumLength: 20, MinimumLength = 3)]
-    public string Nick { get; set; }
-    public string Team { get; set; }
-    public string Role { get; set; }
+    public string Nick { get; set; } = null!;
+    public string? Team { get; set; }
+    public string? Role { get; set; }
 
     public int RoomId { get; set; } // Required foreign key property
 

@@ -58,6 +58,7 @@ public class GameDbContext : DbContext
         .HasMany(e => e.Players)
         .WithOne()
         .HasForeignKey(e => e.RoomId)
+        .IsRequired()
         .OnDelete(DeleteBehavior.Restrict);
 
         // One-to-many without navigation to principal

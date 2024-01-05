@@ -1,6 +1,10 @@
 ﻿namespace servartur.Entities;
 public class Squad
 {
+    public Squad()
+    {
+        Status = "unknown";
+    }
     public int SquadId { get; set; }
     public int QuestNumber { get; set; }
     public int RoundNumber { get; set; }
