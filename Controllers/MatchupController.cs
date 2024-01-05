@@ -53,7 +53,7 @@ public class MatchupController : ControllerBase
         }
         catch (ArgumentException ex)
         {
-            return BadRequest(ex.Message);
+            return NotFound(ex.Message);
         }
         catch (DbUpdateException)
         {
