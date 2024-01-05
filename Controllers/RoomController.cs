@@ -18,20 +18,8 @@ public class RoomController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpGet]
-    public ActionResult<IEnumerable<RoomDto>> GetAll()
-    {
-        var rooms = _dbContext
-            .Rooms
-            .Include(r => r.Players)
-            .ToList();
-
-        var roomsDtos = _mapper.Map<List<RoomDto>>(rooms);
-        return Ok(roomsDtos);
-    }
-
     [HttpGet("{id}")]
-    public ActionResult<Room> GetById(int id)
+    public ActionResult<RoomDto> GetById(int id)
     {
         var room = _dbContext
             .Rooms
