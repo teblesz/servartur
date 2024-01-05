@@ -12,6 +12,7 @@ public interface IMatchupService
     int CreatePlayer(CreatePlayerDto dto);
     RoomDto? GetById(int id);
     int CreateRoom([FromBody] CreateRoomDto dto);
+    void RemovePlayer(int id);
 }
 
 public class MatchupService : IMatchupService
@@ -54,5 +55,17 @@ public class MatchupService : IMatchupService
         _dbContext.SaveChanges();
 
         return player.PlayerId;
+    }
+    public void RemovePlayer(int id)
+    {
+        var player = _dbContext
+            .Players
+            .FirstOrDefault(p => p.PlayerId == id);
+
+        if (player == null)
+            throw new ArgumentException($"Player with ID {id} does not exist.");
+
+        _dbContext.Players.Remove(player);
+        _dbContext.SaveChanges();
     }
 }

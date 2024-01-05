@@ -60,4 +60,23 @@ public class MatchupController : ControllerBase
             return StatusCode(500, "An error occured while saving changes to database");
         }
     }
+
+    [HttpDelete("player/{id}")]
+    public ActionResult RemovePlayer([FromRoute] int id)
+    {
+        try
+        {
+            _matchupService.RemovePlayer(id);
+            return NoContent();
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (DbUpdateException)
+        {
+            return StatusCode(500, "An error occured while saving changes to database");
+        }
+    }
+
 }
