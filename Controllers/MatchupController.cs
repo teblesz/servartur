@@ -31,10 +31,10 @@ public class MatchupController : ControllerBase
         }
     }
 
-    [HttpGet("{roomId}")]
-    public ActionResult<RoomDto> GetById([FromRoute] int roomId)
+    [HttpGet("{id}")]
+    public ActionResult<RoomDto> GetRoomById([FromRoute] int id)
     {
-        var room = _matchupService.GetById(roomId);
+        var room = _matchupService.GetById(id);
 
         return room == null ? NotFound() : Ok(room);
     }
