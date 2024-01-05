@@ -32,7 +32,7 @@ public class MatchupController : ControllerBase
     }
 
     [HttpGet("{roomId}")]
-    public ActionResult<RoomDto> GetById(int roomId)
+    public ActionResult<RoomDto> GetById([FromRoute] int roomId)
     {
         var room = _matchupService.GetById(roomId);
 
