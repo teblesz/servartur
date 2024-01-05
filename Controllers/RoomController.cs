@@ -6,7 +6,7 @@ using servartur.Models;
 
 namespace servartur.Controllers;
 [ApiController]
-[Route("api/rooms")]
+[Route("api/[controller]")]
 public class RoomController : ControllerBase
 {
     private readonly GameDbContext _dbContext;
@@ -55,12 +55,22 @@ public class RoomController : ControllerBase
         return Created($"/api/rooms/{room.RoomId}", null);
     }
 
-    [HttpPost]
+    [HttpPost("player")]
     public ActionResult CreatePlayer([FromBody] CreatePlayerDto dto)
     {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        if (!_dbContext.Rooms.Any(r => r.RoomId == dto.RoomId))
+        {
+            ModelState.AddModelError("RoomId", $"Room with ID {dto.RoomId} does not exist.");
+            return BadRequest(ModelState);
+        }
+
         var player = _mapper.Map<Player>(dto);
         _dbContext.Players.Add(player);
-        _dbContext.SaveChanges();
+        try { _dbContext.SaveChanges(); }
+        catch (DbUpdateException) { return StatusCode(500, "An error occured while saving changes to database"); }
         return Created($"/api/rooms/player/{player.PlayerId}", null);
     }
 }
