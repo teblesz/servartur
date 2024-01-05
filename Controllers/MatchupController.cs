@@ -79,4 +79,27 @@ public class MatchupController : ControllerBase
         }
     }
 
+    // TODO add room characters modifications
+
+    // TODO add startRoom - assign roles, create first squad and assign leader
+
+    // TODO remove this later in favour of startRoom()
+    [HttpPut("makeTeams/{roomId}")]
+    public ActionResult MakeTeams([FromRoute]int roomId)
+    {
+        // TODO extract this specific try catch block to some func, and then pass service call in lambda
+        try
+        {
+            _matchupService.MakeTeams(roomId);
+            return NoContent();
+        }
+        catch (ArgumentException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (DbUpdateException)
+        {
+            return StatusCode(500, "An error occured while saving changes to database");
+        }
+    }
 }

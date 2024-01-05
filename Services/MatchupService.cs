@@ -13,6 +13,7 @@ public interface IMatchupService
     RoomDto? GetById(int id);
     int CreateRoom([FromBody] CreateRoomDto dto);
     void RemovePlayer(int id);
+    void MakeTeams(int roomId);
 }
 
 public class MatchupService : IMatchupService
@@ -67,5 +68,54 @@ public class MatchupService : IMatchupService
 
         _dbContext.Players.Remove(player);
         _dbContext.SaveChanges();
+    }
+
+    // TODO remove this later in favour of startRoom()
+    public void MakeTeams(int roomId)
+    {
+        var room = _dbContext
+            .Rooms
+            .Include(r => r.Players)
+            .FirstOrDefault(r => r.RoomId == roomId);
+
+        if (room == null)
+            throw new ArgumentException($"Room with ID {roomId} does not exist.");
+
+        var numberOfPlayers = room.Players.Count();
+        int numberOfEvils = (numberOfPlayers + 2) / 3;
+
+        List<string> teamAssignmentList = Enumerable.Range(0, numberOfPlayers)
+            .Select(index => index < numberOfEvils ? "evil" : "good")
+            .ToList();
+        teamAssignmentList.Shuffle();
+
+        
+        foreach (var player in room.Players)
+        {
+            player.Team = teamAssignmentList.First();
+            teamAssignmentList.RemoveAt(0);
+        }
+        _dbContext.SaveChanges();
+    }
+}
+public static class ListExtensionShuffle
+{
+    /// <summary>
+    /// Fisher-Yates shuffle for lists
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="list"></param>
+    public static void Shuffle<T>(this List<T> list)
+    {
+        Random rng = new Random();
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
     }
 }
