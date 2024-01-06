@@ -3,7 +3,7 @@
 public static class ListExtensionShuffle
 {
     /// <summary>
-    /// Fisher-Yates shuffle for lists
+    /// Fisher-Yates shuffle extension for lists
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="list"></param>
