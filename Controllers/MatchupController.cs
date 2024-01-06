@@ -29,7 +29,6 @@ public class MatchupController : ControllerBase
     public ActionResult<RoomDto> GetRoomById([FromRoute] int id)
     {
         var room = _matchupService.GetById(id);
-
         return room == null ? NotFound() : Ok(room);
     }
 
@@ -37,9 +36,6 @@ public class MatchupController : ControllerBase
     [HttpPost("player")]
     public ActionResult CreatePlayer([FromBody] CreatePlayerDto dto)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
         var playerId = _matchupService.CreatePlayer(dto);
         return Created($"/api/rooms/player/{playerId}", null);
     }
@@ -51,15 +47,12 @@ public class MatchupController : ControllerBase
         return NoContent();
     }
 
-    // TODO add room characters modifications
 
     // TODO add startRoom - assign roles, create first squad and assign leader
-
     // TODO remove this later in favour of startRoom()
     [HttpPut("makeTeams/{roomId}")]
     public ActionResult MakeTeams([FromRoute] int roomId)
-    {
-        // TODO extract this specific try catch block to some func, and then pass service call in lambda      
+    {    
         _matchupService.MakeTeams(roomId);
         return NoContent();
     }
