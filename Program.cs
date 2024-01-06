@@ -23,6 +23,7 @@ try
     builder.Services.AddAutoMapper(typeof(Program).Assembly);
     builder.Services.AddScoped<IMatchupService, MatchupService>();
     builder.Services.AddScoped<ErrorHandlingMiddleware>();
+    builder.Services.AddScoped<RequestTimingMiddleware>();
 
     // NLog: Setup NLog for Dependency injection
     builder.Logging.ClearProviders();
@@ -45,6 +46,7 @@ try
     }
 
     app.UseMiddleware<ErrorHandlingMiddleware>();
+    app.UseMiddleware<RequestTimingMiddleware>();
     app.UseHttpsRedirection();
 
     //app.UseAuthorization();
