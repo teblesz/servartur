@@ -88,16 +88,16 @@ public class MatchupService : IMatchupService
         var numberOfPlayers = room.Players.Count();
         int numberOfEvils = (numberOfPlayers + 2) / 3;
 
-        List<Team> teamAssignmentList = Enumerable.Range(0, numberOfPlayers)
+        List<Team> teamAssignment = Enumerable.Range(0, numberOfPlayers)
             .Select(index => index < numberOfEvils ? Team.Evil : Team.Good)
             .ToList();
-        teamAssignmentList.Shuffle();
+        teamAssignment.Shuffle();
 
         
         foreach (var player in room.Players)
         {
-            player.Team = teamAssignmentList.First();
-            teamAssignmentList.RemoveAt(0);
+            player.Team = teamAssignment.First();
+            teamAssignment.RemoveAt(0);
         }
         _dbContext.SaveChanges();
     }
