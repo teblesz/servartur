@@ -21,8 +21,8 @@ public class MatchupController : ControllerBase
     [HttpPost]
     public ActionResult CreateRoom([FromBody] CreateRoomDto dto)
     {
-            var roomId = _matchupService.CreateRoom(dto);
-            return Created($"/api/rooms/{roomId}", null);
+        var roomId = _matchupService.CreateRoom(dto);
+        return Created($"/api/rooms/{roomId}", null);
     }
 
     [HttpGet("{id}")]
@@ -40,29 +40,15 @@ public class MatchupController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        try
-        {
-            var playerId = _matchupService.CreatePlayer(dto);
-            return Created($"/api/rooms/player/{playerId}", null);
-        }
-        catch (EntityNotFoundException ex)
-        {
-            return NotFound(ex.Message);
-        }
+        var playerId = _matchupService.CreatePlayer(dto);
+        return Created($"/api/rooms/player/{playerId}", null);
     }
 
     [HttpDelete("player/{id}")]
     public ActionResult RemovePlayer([FromRoute] int id)
     {
-        try
-        {
-            _matchupService.RemovePlayer(id);
-            return NoContent();
-        }
-        catch (EntityNotFoundException ex)
-        {
-            return NotFound(ex.Message);
-        }
+        _matchupService.RemovePlayer(id);
+        return NoContent();
     }
 
     // TODO add room characters modifications
@@ -71,17 +57,10 @@ public class MatchupController : ControllerBase
 
     // TODO remove this later in favour of startRoom()
     [HttpPut("makeTeams/{roomId}")]
-    public ActionResult MakeTeams([FromRoute]int roomId)
+    public ActionResult MakeTeams([FromRoute] int roomId)
     {
-        // TODO extract this specific try catch block to some func, and then pass service call in lambda
-        try
-        {
-            _matchupService.MakeTeams(roomId);
-            return NoContent();
-        }
-        catch (EntityNotFoundException ex)
-        {
-            return NotFound(ex.Message);
-        }
+        // TODO extract this specific try catch block to some func, and then pass service call in lambda      
+        _matchupService.MakeTeams(roomId);
+        return NoContent();
     }
 }

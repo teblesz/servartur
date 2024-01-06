@@ -1,6 +1,5 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using servartur.Exceptions;
 
 namespace servartur.Middleware;
 
@@ -18,16 +17,22 @@ public class ErrorHandlingMiddleware : IMiddleware
         {
             await next.Invoke(context);
         }
+        catch (EntityNotFoundException ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
+            await context.Response.WriteAsync(ex.Message);
+        }
         catch (DbUpdateException ex)
         {
             _logger.LogError(ex, ex.Message);
-            context.Response.StatusCode = 500;
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             await context.Response.WriteAsync("Database error");
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, ex.Message);
-            context.Response.StatusCode = 500;
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             await context.Response.WriteAsync("Something went wrong");
         }
     }
