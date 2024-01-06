@@ -20,15 +20,8 @@ public class MatchupController : ControllerBase
     [HttpPost]
     public ActionResult CreateRoom([FromBody] CreateRoomDto dto)
     {
-        try
-        {
             var roomId = _matchupService.CreateRoom(dto);
             return Created($"/api/rooms/{roomId}", null);
-        }
-        catch (DbUpdateException)
-        {
-            return StatusCode(500, "An error occured while saving changes to database");
-        }
     }
 
     [HttpGet("{id}")]
@@ -55,10 +48,6 @@ public class MatchupController : ControllerBase
         {
             return NotFound(ex.Message);
         }
-        catch (DbUpdateException)
-        {
-            return StatusCode(500, "An error occured while saving changes to database");
-        }
     }
 
     [HttpDelete("player/{id}")]
@@ -72,10 +61,6 @@ public class MatchupController : ControllerBase
         catch (ArgumentException ex)
         {
             return NotFound(ex.Message);
-        }
-        catch (DbUpdateException)
-        {
-            return StatusCode(500, "An error occured while saving changes to database");
         }
     }
 
@@ -96,10 +81,6 @@ public class MatchupController : ControllerBase
         catch (ArgumentException ex)
         {
             return NotFound(ex.Message);
-        }
-        catch (DbUpdateException)
-        {
-            return StatusCode(500, "An error occured while saving changes to database");
         }
     }
 }

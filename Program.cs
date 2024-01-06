@@ -4,6 +4,7 @@ using servartur.Entities;
 using servartur.Services;
 using NLog;
 using NLog.Web;
+using servartur.Middleware;
 
 // Early init of NLog to allow startup and exception logging, before host is built
 var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
@@ -21,6 +22,7 @@ try
     builder.Services.AddScoped<DbSeeder>();
     builder.Services.AddAutoMapper(typeof(Program).Assembly);
     builder.Services.AddScoped<IMatchupService, MatchupService>();
+    builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
     // NLog: Setup NLog for Dependency injection
     builder.Logging.ClearProviders();
@@ -42,6 +44,7 @@ try
         app.UseSwaggerUI();
     }
 
+    app.UseMiddleware<ErrorHandlingMiddleware>();
     app.UseHttpsRedirection();
 
     //app.UseAuthorization();

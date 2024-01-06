@@ -22,11 +22,13 @@ public class MatchupService : IMatchupService
 {
     private readonly GameDbContext _dbContext;
     private readonly IMapper _mapper;
+    public readonly ILogger<MatchupService> _logger;
 
-    public MatchupService(GameDbContext dbContext, IMapper mapper)
+    public MatchupService(GameDbContext dbContext, IMapper mapper, ILogger<MatchupService> logger)
     {
         _dbContext = dbContext;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public int CreateRoom([FromBody] CreateRoomDto dto)
@@ -34,7 +36,7 @@ public class MatchupService : IMatchupService
         var room = _mapper.Map<Room>(dto);
         room.Status = RoomStatus.Matchup;
 
-        _dbContext.Rooms.Add(room);
+        _dbContext.Rooms.Add(room); 
         _dbContext.SaveChanges();
         return room.RoomId;
     }
