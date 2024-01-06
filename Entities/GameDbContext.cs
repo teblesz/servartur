@@ -9,13 +9,13 @@ public class GameDbContext : DbContext
     private string _connectionString =
         "Data Source=.\\SQLEXPRESS;Initial Catalog=DatarturDb;Integrated Security=True";
 
-    public DbSet<Room> Rooms { get; set; }
-    public DbSet<Player> Players { get; set; }
-    public DbSet<Squad> Squads { get; set; }
-    public DbSet<Membership> Memberships { get; set; }
-    public DbSet<SquadVote> SquadVotes { get; set; }
-    public DbSet<QuestVote> QuestVotes { get; set; }
-    public DbSet<Assassination> Assassinations { get; set; }
+    public DbSet<Room> Rooms { get; set; } = null!;
+    public DbSet<Player> Players { get; set; } = null!;
+    public DbSet<Squad> Squads { get; set; } = null!;
+    public DbSet<Membership> Memberships { get; set; } = null!;
+    public DbSet<SquadVote> SquadVotes { get; set; } = null!;
+    public DbSet<QuestVote> QuestVotes { get; set; } = null!;
+    public DbSet<Assassination> Assassinations { get; set; } = null!;
 
 
 
