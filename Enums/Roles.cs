@@ -32,7 +32,7 @@ public enum Role
 }
 public static class RoleMapping
 {
-    public static readonly Dictionary<Role, Team> Roles = new()
+    public static readonly Dictionary<Role, Team> Map = new()
     {
         { Role.Merlin, Team.Good },
         { Role.Assassin, Team.Evil },
