@@ -27,16 +27,39 @@ public class GameDbContext : DbContext
         addRoomOneToMany(modelBuilder);
         addLeaderOneToMany(modelBuilder);
         addCurrentSquadOneToOne(modelBuilder);
-
         addAllVotesRelations(modelBuilder);
         addMembershipManyToMany(modelBuilder);
         addAssassinationOneToOne(modelBuilder);
 
-        // TODO add other limits (length, required, etc.) (maybe not necessary, as nick is the only thing in DB modifiable by users)
+        addEnumFieldsConvertions(modelBuilder);
+        addPlayerNickLengthLimit(modelBuilder);
+    }
+
+    private static void addEnumFieldsConvertions(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Player>()
+            .Property(p => p.Team)
+            .HasConversion<string>();
+
+        modelBuilder.Entity<Player>()
+            .Property(p => p.Role)
+            .HasConversion<string>();
+
+        modelBuilder.Entity<Room>()
+            .Property(r => r.Status) 
+            .HasConversion<string>();
+
+        modelBuilder.Entity<Squad>()
+            .Property(r => r.Status)
+            .HasConversion<string>();
+    }
+
+    private static void addPlayerNickLengthLimit(ModelBuilder modelBuilder)
+    {
+        //only field in database for players to directly enter
         modelBuilder.Entity<Player>()
                 .Property(p => p.Nick)
                 .HasMaxLength(20);
-                
     }
 
     private static void addPrimaryKeys(ModelBuilder modelBuilder)

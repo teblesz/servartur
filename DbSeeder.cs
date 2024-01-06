@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using servartur.Entities;
+using servartur.Types;
 using System.Xml.Schema;
 
 namespace servartur;
@@ -57,72 +58,72 @@ public class DbSeeder
                     new Player()
                     {
                         Nick = "michal",
-                        Team = "evil",
-                        Role = "evil_assassin",
+                        Team = Team.Evil,
+                        Role = Role.Assassin,
                         RoomId = rooms[0].RoomId,
                     },
                     new Player()
                     {
                         Nick = "kamil",
-                        Team = "good",
-                        Role = "good_merlin",
+                        Team = Team.Good,
+                        Role = Role.Merlin,
                         RoomId = rooms[0].RoomId,
                     },
                     new Player()
                     {
                         Nick = "janek",
-                        Team = "evil",
-                        Role = "evil_morgana",
+                        Team = Team.Evil,
+                        Role = Role.Morgana,
                         RoomId = rooms[0].RoomId,
                     },
                     new Player()
                     {
                         Nick = "jedrek",
-                        Team = "good",
-                        Role = "good_percival",
+                        Team = Team.Good,
+                        Role = Role.Percival,
                         RoomId = rooms[0].RoomId,
                     },
                     new Player()
                     {
                         Nick = "szymon",
-                        Team = "good",
-                        Role = "good_no_role",
+                        Team = Team.Good,
+                        Role = null,
                         RoomId = rooms[0].RoomId,
                     },
 
                     new Player()
                     {
                         Nick = "michal_1",
-                        Team = "good",
-                        Role = "good_merlin",
+                        Team = Team.Good,
+                        Role = Role.Merlin,
                         RoomId = rooms[1].RoomId,
                     },
                     new Player()
                     {
                         Nick = "kamil_1",
-                        Team = "evil",
-                        Role = "evil_assassin",
+                        Team = Team.Evil,
+                        Role = Role.Assassin,
                         RoomId = rooms[1].RoomId,
                     },
                     new Player()
                     {
                         Nick = "janek_1",
-                        Team = "good",
-                        Role = "good_percival",
+                        Team = Team.Good,
+                        Role = Role.Percival,
                         RoomId = rooms[1].RoomId,
                     },
                     new Player()
                     {
                         Nick = "jedrek_1",
-                        Team = "good",
-                        Role = "good_no_role",
+                        Team = Team.Good,
+                        Role = null,
                         RoomId = rooms[1].RoomId,
                     },
                     new Player()
                     {
                         Nick = "szymon_1",
-                        Team = "evil",
-                        Role = "evil_morgana",
+                        Team = Team.Evil,
+                        Role = Role.Morgana,
                         RoomId = rooms[1].RoomId,
                     },
                 };
@@ -136,7 +137,7 @@ public class DbSeeder
                         QuestNumber = 1,
                         RoundNumber = 1,
                         RequiredPlayersNumber = 2,
-                        Status = "rejected",
+                        Status = SquadStatus.Rejected,
                         Leader = players[0],
                         RoomId = rooms[0].RoomId,
                     },
@@ -145,7 +146,7 @@ public class DbSeeder
                         QuestNumber = 1,
                         RoundNumber = 2,
                         RequiredPlayersNumber = 2,
-                        Status = "successfull",
+                        Status = SquadStatus.Successfull,
                         Leader = players[1],
                         RoomId = rooms[0].RoomId,
                     },
@@ -154,7 +155,7 @@ public class DbSeeder
                         QuestNumber = 2,
                         RoundNumber = 3,
                         RequiredPlayersNumber = 3,
-                        Status = "failed",
+                        Status = SquadStatus.Failed,
                         Leader = players[2],
                         RoomId = rooms[0].RoomId,
                     },
@@ -163,7 +164,7 @@ public class DbSeeder
                         QuestNumber = 3,
                         RoundNumber = 4,
                         RequiredPlayersNumber = 2,
-                        Status = "failed",
+                        Status = SquadStatus.Failed,
                         Leader = players[3],
                         RoomId = rooms[0].RoomId,
                     },
@@ -172,7 +173,7 @@ public class DbSeeder
                         QuestNumber = 4,
                         RoundNumber = 5,
                         RequiredPlayersNumber = 2,
-                        Status = "successfull",
+                        Status = SquadStatus.Successfull,
                         Leader = players[4],
                         RoomId = rooms[0].RoomId,
                     },
@@ -181,7 +182,7 @@ public class DbSeeder
                         QuestNumber = 5,
                         RoundNumber = 6,
                         RequiredPlayersNumber = 3,
-                        Status = "successfull",
+                        Status = SquadStatus.Successfull,
                         Leader = players[0],
                         RoomId = rooms[0].RoomId,
                     },
@@ -201,13 +202,13 @@ public class DbSeeder
         //add other info
         if (rooms.Count == 2)
         {
-            rooms[0].Status = "result";
+            rooms[0].Status = RoomStatus.Result;
             rooms[0].LastRoundWithSquadOnQuest = 5;
             rooms[0].CurrentSquad = squads[4];
             rooms[0].CurrentSquadId = squads[4].SquadId;
             rooms[0].Assassination = new Assassination() { Assassin = players[0], Target = players[1], Result = true };
 
-            rooms[1].Status = "matchmaking";
+            rooms[1].Status = RoomStatus.Matchup;
             rooms[1].LastRoundWithSquadOnQuest = -1;
             rooms[1].CurrentSquad = null;
         }

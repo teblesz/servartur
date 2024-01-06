@@ -1,15 +1,17 @@
-﻿namespace servartur.Entities;
+﻿using servartur.Types;
+
+namespace servartur.Entities;
 public class Room
 {
     public Room()
     {
-        Status = "unknown";
+        Status = RoomStatus.Unknown;
         LastRoundWithSquadOnQuest = -1;
     }
 
     public int RoomId { get; set; }
     //public string HostUserFId { get; set; }
-    public string Status { get; set; }
+    public RoomStatus Status { get; set; }
     public int LastRoundWithSquadOnQuest { get; set; }
 
     public int? CurrentSquadId { get; set; }

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using servartur.Entities;
 using servartur.Models;
+using servartur.Types;
 using servartur.Utils;
 
 namespace servartur.Services;
@@ -85,8 +86,8 @@ public class MatchupService : IMatchupService
         var numberOfPlayers = room.Players.Count();
         int numberOfEvils = (numberOfPlayers + 2) / 3;
 
-        List<string> teamAssignmentList = Enumerable.Range(0, numberOfPlayers)
-            .Select(index => index < numberOfEvils ? "evil" : "good")
+        List<Team> teamAssignmentList = Enumerable.Range(0, numberOfPlayers)
+            .Select(index => index < numberOfEvils ? Team.Evil : Team.Good)
             .ToList();
         teamAssignmentList.Shuffle();
 

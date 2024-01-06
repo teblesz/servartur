@@ -1,0 +1,27 @@
+﻿using System.Runtime.Serialization;
+
+namespace servartur.Types;
+
+public enum SquadStatus
+{
+    [EnumMember(Value = "Unknown")]
+    Unknown,
+
+    [EnumMember(Value = "Submitted")]
+    Submitted,
+
+    [EnumMember(Value = "Approved")]
+    Approved,
+
+    [EnumMember(Value = "Rejected")]
+    Rejected,
+
+    [EnumMember(Value = "QuestVoting")]
+    QuestVoting,
+
+    [EnumMember(Value = "Successfull")]
+    Successfull,
+
+    [EnumMember(Value = "Failed")]
+    Failed,
+}

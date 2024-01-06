@@ -1,18 +1,20 @@
-﻿namespace servartur.Entities;
+﻿using servartur.Types;
+
+namespace servartur.Entities;
 public class Squad
 {
     public Squad()
     {
-        Status = "unknown";
+        Status = SquadStatus.Unknown;
     }
     public int SquadId { get; set; }
     public int QuestNumber { get; set; }
     public int RoundNumber { get; set; }
     public int RequiredPlayersNumber { get; set; }
-    public string Status { get; set; }
+    public SquadStatus Status { get; set; }
 
     public int LeaderId { get; set; }
-    public virtual Player Leader { get; set; }
+    public virtual Player Leader { get; set; } = null!;
 
     public int RoomId { get; set; } // Required foreign key property
 
