@@ -12,16 +12,15 @@ public enum SquadStatus
 
     [EnumMember(Value = "Approved")]
     Approved,
-
     [EnumMember(Value = "Rejected")]
     Rejected,
+
 
     [EnumMember(Value = "QuestVoting")]
     QuestVoting,
 
     [EnumMember(Value = "Successfull")]
     Successfull,
-
     [EnumMember(Value = "Failed")]
     Failed,
 }
