@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using servartur.Entities;
+using servartur.Exceptions;
 using servartur.Models;
 using servartur.Types;
 using servartur.Utils;
@@ -48,14 +49,16 @@ public class MatchupService : IMatchupService
             .Include(r => r.Players)
             .FirstOrDefault(r => r.RoomId == id);
 
-        if (room == null) return null;
+        if (room == null) 
+            return null;
+
         var result = _mapper.Map<RoomDto>(room);
         return result;
     }
     public int CreatePlayer(CreatePlayerDto dto)
     {
         if (!_dbContext.Rooms.Any(r => r.RoomId == dto.RoomId))
-            throw new ArgumentException($"Room with ID {dto.RoomId} does not exist.");
+            throw new RoomNotFoundException(dto.RoomId);
 
         var player = _mapper.Map<Player>(dto);
         _dbContext.Players.Add(player);
@@ -63,14 +66,14 @@ public class MatchupService : IMatchupService
 
         return player.PlayerId;
     }
-    public void RemovePlayer(int id)
+    public void RemovePlayer(int playerId)
     {
         var player = _dbContext
             .Players
-            .FirstOrDefault(p => p.PlayerId == id);
+            .FirstOrDefault(p => p.PlayerId == playerId);
 
         if (player == null)
-            throw new ArgumentException($"Player with ID {id} does not exist.");
+            throw new PlayerNotFoundException(playerId);
 
         _dbContext.Players.Remove(player);
         _dbContext.SaveChanges();
@@ -85,7 +88,7 @@ public class MatchupService : IMatchupService
             .FirstOrDefault(r => r.RoomId == roomId);
 
         if (room == null)
-            throw new ArgumentException($"Room with ID {roomId} does not exist.");
+            throw new RoomNotFoundException(roomId);
 
         var numberOfPlayers = room.Players.Count();
         int numberOfEvils = (numberOfPlayers + 2) / 3;

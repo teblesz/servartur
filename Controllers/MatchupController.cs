@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using servartur.Entities;
+using servartur.Exceptions;
 using servartur.Models;
 using servartur.Services;
 
@@ -44,7 +45,7 @@ public class MatchupController : ControllerBase
             var playerId = _matchupService.CreatePlayer(dto);
             return Created($"/api/rooms/player/{playerId}", null);
         }
-        catch (ArgumentException ex)
+        catch (EntityNotFoundException ex)
         {
             return NotFound(ex.Message);
         }
@@ -58,7 +59,7 @@ public class MatchupController : ControllerBase
             _matchupService.RemovePlayer(id);
             return NoContent();
         }
-        catch (ArgumentException ex)
+        catch (EntityNotFoundException ex)
         {
             return NotFound(ex.Message);
         }
@@ -78,7 +79,7 @@ public class MatchupController : ControllerBase
             _matchupService.MakeTeams(roomId);
             return NoContent();
         }
-        catch (ArgumentException ex)
+        catch (EntityNotFoundException ex)
         {
             return NotFound(ex.Message);
         }
