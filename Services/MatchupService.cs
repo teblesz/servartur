@@ -32,6 +32,8 @@ public class MatchupService : IMatchupService
     public int CreateRoom([FromBody] CreateRoomDto dto)
     {
         var room = _mapper.Map<Room>(dto);
+        room.Status = RoomStatus.Matchup;
+
         _dbContext.Rooms.Add(room);
         _dbContext.SaveChanges();
         return room.RoomId;

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using servartur.Entities;
 using servartur.Models;
+using servartur.Types;
 
 namespace servartur;
 
@@ -11,8 +12,7 @@ public class MappingProfile : Profile
         CreateMap<Room, RoomDto>();
         CreateMap<Player, PlayerDto>();
 
-        CreateMap<CreateRoomDto, Room>()
-            .ForMember(r => r.Status, c => c.MapFrom(dto => "matchmaking"));
+        CreateMap<CreateRoomDto, Room>();
 
         CreateMap<CreatePlayerDto, Player>();
     }
