@@ -1,4 +1,4 @@
-﻿using servartur.Types;
+﻿using servartur.Enums;
 
 namespace servartur.Entities;
 public class Squad

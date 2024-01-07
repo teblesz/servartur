@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
-using servartur.BussinessRules;
+using servartur.DomainLogic;
 using servartur.Entities;
 using servartur.Exceptions;
 using servartur.Models;
-using servartur.Types;
-using servartur.Utils;
+using servartur.Enums;
+using servartur.Algorithms;
 
 namespace servartur.Services;
 

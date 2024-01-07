@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace servartur.Types;
+namespace servartur.Enums;
 
 public enum Team
 {

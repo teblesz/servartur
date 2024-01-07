@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using servartur.Entities;
-using servartur.Types;
+using servartur.Enums;
 using System.Xml.Schema;
 
 namespace servartur;

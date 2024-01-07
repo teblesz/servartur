@@ -1,4 +1,4 @@
-﻿namespace servartur.BussinessRules;
+﻿namespace servartur.DomainLogic;
 
 public static class MatchupLogic
 {
