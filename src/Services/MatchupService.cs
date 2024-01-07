@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
+using servartur.BussinessRules;
 using servartur.Entities;
 using servartur.Exceptions;
 using servartur.Models;
@@ -91,7 +92,7 @@ public class MatchupService : IMatchupService
             throw new RoomNotFoundException(roomId);
 
         var numberOfPlayers = room.Players.Count();
-        int numberOfEvils = (numberOfPlayers + 2) / 3;
+        int numberOfEvils = MatchupLogic.GetNumberOfEvilPlayers(numberOfPlayers);
 
         List<Team> teamAssignment = Enumerable.Range(0, numberOfPlayers)
             .Select(index => index < numberOfEvils ? Team.Evil : Team.Good)
