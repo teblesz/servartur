@@ -104,6 +104,18 @@ public class MatchupService : IMatchupService
             player.Team = teamAssignment.First();
             teamAssignment.RemoveAt(0);
         }
+        // TODO here assign Roles to players using RolesMapping class
+        //DUMMY:
+        List<Role?> roleAssignment = new() { Role.Merlin, Role.Assassin };
+        roleAssignment.Insert(numberOfPlayers - 2, null);
+        roleAssignment.Shuffle();
+        foreach (var player in room.Players)
+        {
+            player.Role = roleAssignment.First();
+            roleAssignment.RemoveAt(0);
+        }
+
+        //end dummy role assignment
         _dbContext.SaveChanges();
     }
 }
