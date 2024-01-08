@@ -10,28 +10,27 @@ using Moq.EntityFrameworkCore;
 namespace servartur.Tests;
 public class MatchupServiceTests
 {
+    private readonly DbContextOptions<GameDbContext> _dummyDbContextOptions = new DbContextOptionsBuilder<GameDbContext>()
+                .UseInMemoryDatabase(databaseName: "CreateRoom_ValidDto")
+                .Options;
     [Fact]
     public void CreateRoom_ValidDto_ReturnsRoomId()
     {
         // Arrange
+        var dbContextMock = new Mock<GameDbContext>(_dummyDbContextOptions);
         var loggerMock = new Mock<ILogger<MatchupService>>();
+        var mapperMock = new Mock<IMapper>();
+        var matchupService = new MatchupService(dbContextMock.Object, mapperMock.Object, loggerMock.Object);
 
         var createRoomDto = new CreateRoomDto();
         var expectedRoomId = 1;
         var room = new Room { RoomId = expectedRoomId, Status = RoomStatus.Matchup };
-        var mapperMock = new Mock<IMapper>();
-        mapperMock.Setup(m => m.Map<Room>(It.IsAny<CreateRoomDto>())).Returns(room);
-
-        // Setup the DbContext mock
-        var dbContextMock = new Mock<GameDbContext>(new DbContextOptionsBuilder<GameDbContext>()
-            .UseInMemoryDatabase(databaseName: "CreateRoom_ValidDto")
-            .Options);
-
         IList<Room> rooms = new List<Room> { room };
+
+        mapperMock.Setup(m => m.Map<Room>(It.IsAny<CreateRoomDto>())).Returns(room);
         dbContextMock.SetupGet(x => x.Rooms).ReturnsDbSet(rooms);
 
         // Act
-        var matchupService = new MatchupService(dbContextMock.Object, mapperMock.Object, loggerMock.Object);
         var result = matchupService.CreateRoom(createRoomDto);
 
         // Assert
