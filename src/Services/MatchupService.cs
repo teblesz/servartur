@@ -92,7 +92,7 @@ public class MatchupService : IMatchupService
             throw new RoomNotFoundException(roomId);
 
         var numberOfPlayers = room.Players.Count;
-        int numberOfEvils = MatchupLogic.GetNumberOfEvilPlayers(numberOfPlayers);
+        int numberOfEvils = PlayerNumberCalculator.GetEvilPlayersNumber(numberOfPlayers);
 
         List<Team> teamAssignment = Enumerable.Range(0, numberOfPlayers)
             .Select(index => index < numberOfEvils ? Team.Evil : Team.Good)
