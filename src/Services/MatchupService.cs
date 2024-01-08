@@ -91,7 +91,7 @@ public class MatchupService : IMatchupService
         if (room == null)
             throw new RoomNotFoundException(roomId);
 
-        var numberOfPlayers = room.Players.Count();
+        var numberOfPlayers = room.Players.Count;
         int numberOfEvils = MatchupLogic.GetNumberOfEvilPlayers(numberOfPlayers);
 
         List<Team> teamAssignment = Enumerable.Range(0, numberOfPlayers)

@@ -6,7 +6,7 @@ namespace servartur.Entities;
 
 public class GameDbContext : DbContext
 {
-    private string _connectionString =
+    private readonly string _connectionString =
         "Data Source=.\\SQLEXPRESS;Initial Catalog=DatarturDb;Integrated Security=True";
 
     public DbSet<Room> Rooms { get; set; } = null!;
