@@ -33,7 +33,7 @@ public class MatchupService : IMatchupService
         _logger = logger;
     }
 
-    public int CreateRoom([FromBody] CreateRoomDto dto)
+    public int CreateRoom(CreateRoomDto dto)
     {
         var room = _mapper.Map<Room>(dto);
         room.Status = RoomStatus.Matchup;
