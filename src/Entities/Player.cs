@@ -1,4 +1,4 @@
-﻿using servartur.Types;
+﻿using servartur.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace servartur.Entities;

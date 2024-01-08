@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using servartur.Entities;
-using servartur.Types;
+using servartur.Enums;
 using System.Xml.Schema;
 
-namespace servartur;
+namespace servartur.Seeders;
 
 public class DbSeeder
 {
@@ -19,7 +19,7 @@ public class DbSeeder
         {
             if (!_dbContext.Rooms.Any())
             {
-                var partialRooms = new List<Room>() { new Room(), new Room()};
+                var partialRooms = new List<Room>() { new Room(), new Room() };
                 _dbContext.Rooms.AddRange(partialRooms);
                 _dbContext.SaveChanges();
 

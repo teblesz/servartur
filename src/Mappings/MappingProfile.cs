@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using servartur.Entities;
 using servartur.Models;
-using servartur.Types;
+using servartur.Enums;
 
-namespace servartur;
+namespace servartur.Mappings;
 
 public class MappingProfile : Profile
 {

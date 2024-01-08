@@ -24,13 +24,13 @@ public class ErrorHandlingMiddleware : IMiddleware
         }
         catch (DbUpdateException ex)
         {
-            _logger.LogError(ex, ex.Message);
+            _logger.LogError(ex, "{message}", ex.Message);
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             await context.Response.WriteAsync("Database error");
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, ex.Message);
+            _logger.LogError(ex, "{message}", ex.Message);
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             await context.Response.WriteAsync("Something went wrong");
         }

@@ -2,11 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
+using servartur.DomainLogic;
 using servartur.Entities;
 using servartur.Exceptions;
 using servartur.Models;
-using servartur.Types;
-using servartur.Utils;
+using servartur.Enums;
+using servartur.Algorithms;
 
 namespace servartur.Services;
 
@@ -90,8 +91,8 @@ public class MatchupService : IMatchupService
         if (room == null)
             throw new RoomNotFoundException(roomId);
 
-        var numberOfPlayers = room.Players.Count();
-        int numberOfEvils = (numberOfPlayers + 2) / 3;
+        var numberOfPlayers = room.Players.Count;
+        int numberOfEvils = PlayerNumberCalculator.GetEvilPlayersNumber(numberOfPlayers);
 
         List<Team> teamAssignment = Enumerable.Range(0, numberOfPlayers)
             .Select(index => index < numberOfEvils ? Team.Evil : Team.Good)
