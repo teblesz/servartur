@@ -47,7 +47,7 @@ public class MatchupServiceTests
     [InlineData(3)]
     [InlineData(5)]
     [InlineData(50)]
-    public void CreateRoom_ValidDtos_ReturnsRoomIdsAndAddRoomsToDB(int numberOfRoomCreations)
+    public void CreateMultipleRooms_ValidDtos_ReturnsRoomIdsAndAddsRoomsToDB(int numberOfRoomCreations)
     {
         // Arrange
         var dbContextMock = new Mock<GameDbContext>(_dummyDbContextOptions);
@@ -62,20 +62,25 @@ public class MatchupServiceTests
 
         dbContextMock.SetupGet(x => x.Rooms).ReturnsDbSet(rooms);
 
-        // Setup mapperMock to return subsequent rooms dynamically using SetupSequence
-        var mapperSequence = mapperMock.SetupSequence(m => m.Map<Room>(It.IsAny<CreateRoomDto>()));
-        mapperSequence = Enumerable.Range(0, numberOfRoomCreations)
-            .Aggregate(mapperSequence, (currentSequence, i) =>
-                currentSequence.Returns(() => rooms[i]));
+        // Setup mapperMock to return subsequent rooms dynamically using RoomProvider.GetNext
+        var roomProvider = new RoomProvider(rooms);
+        mapperMock.Setup(m => m.Map<Room>(It.IsAny<CreateRoomDto>()))
+            .Returns(() => roomProvider.GetNext());
 
         // Act
-        var results = Enumerable.Range(0, numberOfRoomCreations)
-            .Select(_ => matchupService.CreateRoom(createRoomDto)).ToList();
+        var results = new List<int>();
+        for (int i = 0; i < numberOfRoomCreations; i++)
+            results.Add(matchupService.CreateRoom(createRoomDto));
 
         // Assert
         results.Should().BeEquivalentTo(expectedRoomIds);
         dbContextMock.Verify(db => db.Rooms.Add(It.IsAny<Room>()), Times.Exactly(numberOfRoomCreations));
         dbContextMock.Verify(db => db.SaveChanges(), Times.Exactly(numberOfRoomCreations));
     }
-
+    private class RoomProvider(IList<Room> rooms)
+    {
+        private readonly IList<Room> _rooms = rooms;
+        private int i = 0;
+        public Room GetNext() => _rooms[i++];
+    }
 }
