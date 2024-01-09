@@ -13,6 +13,8 @@ public class MatchupServiceTests
     private readonly DbContextOptions<GameDbContext> _dummyDbContextOptions = new DbContextOptionsBuilder<GameDbContext>()
                 .UseInMemoryDatabase(databaseName: "CreateRoom_ValidDto")
                 .Options;
+
+    #region CreateRoom Tests
     [Fact]
     public void CreateRoom_ValidDto_ReturnsRoomIdAndAddRoomToDB()
     {
@@ -25,10 +27,9 @@ public class MatchupServiceTests
         var createRoomDto = new CreateRoomDto();
         var expectedRoomId = 1;
         var room = new Room { RoomId = expectedRoomId, Status = RoomStatus.Matchup };
-        IList<Room> rooms = new List<Room> { room };
 
         mapperMock.Setup(m => m.Map<Room>(It.IsAny<CreateRoomDto>())).Returns(room);
-        dbContextMock.SetupGet(x => x.Rooms).ReturnsDbSet(rooms);
+        dbContextMock.SetupGet(x => x.Rooms).ReturnsDbSet(new List<Room>());
 
         // Act
         var result = matchupService.CreateRoom(createRoomDto);
@@ -60,7 +61,7 @@ public class MatchupServiceTests
         IList<Room> rooms = Enumerable.Range(1, numberOfRoomCreations)
             .Select(i => new Room { RoomId = i, Status = RoomStatus.Matchup }).ToList();
 
-        dbContextMock.SetupGet(x => x.Rooms).ReturnsDbSet(rooms);
+        dbContextMock.SetupGet(x => x.Rooms).ReturnsDbSet(new List<Room>());
 
         // Setup mapperMock to return subsequent rooms dynamically using RoomProvider.GetNext
         var roomProvider = new RoomProvider(rooms);
@@ -83,4 +84,5 @@ public class MatchupServiceTests
         private int i = 0;
         public Room GetNext() => _rooms[i++];
     }
+    #endregion
 }
