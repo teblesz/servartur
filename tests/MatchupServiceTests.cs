@@ -12,7 +12,7 @@ using System.Linq.Expressions;
 namespace servartur.Tests;
 public class MatchupServiceTests
 {
-    private DbContextOptions<GameDbContext> getDbOptions()
+    private static DbContextOptions<GameDbContext> getDbOptions()
         => new DbContextOptionsBuilder<GameDbContext>()
                 .UseInMemoryDatabase(databaseName: "CreateRoom_ValidDto")
                 .Options;
@@ -83,9 +83,9 @@ public class MatchupServiceTests
     }
     private class RoomProvider(IList<Room> rooms)
     {
-        private readonly IList<Room> _rooms = rooms;
+        private readonly IList<Room> rooms = rooms;
         private int i = 0;
-        public Room GetNext() => _rooms[i++];
+        public Room GetNext() => rooms[i++];
     }
     #endregion
 
@@ -156,9 +156,9 @@ public class MatchupServiceTests
     }
     private class PlayerProvider(IList<Player> players)
     {
-        private readonly IList<Player> _players = players;
+        private readonly IList<Player> players = players;
         private int i = 0;
-        public Player GetNext() => _players[i++];
+        public Player GetNext() => players[i++];
     }
 
     [Fact]

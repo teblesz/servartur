@@ -18,8 +18,8 @@ public class Room
     public virtual Squad? CurrentSquad { get; set; }
     public virtual Assassination? Assassination { get; set; }
 
-    public virtual List<Player> Players { get; set; } = new List<Player>();
-    public virtual List<Squad> Squads { get; set; } = new List<Squad>();
+    public virtual List<Player> Players { get; set; } = [];
+    public virtual List<Squad> Squads { get; set; } = [];
 
 }
 

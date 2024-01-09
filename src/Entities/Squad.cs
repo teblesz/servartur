@@ -18,9 +18,9 @@ public class Squad
 
     public int RoomId { get; set; } // Required foreign key property
 
-    public virtual List<Membership> Memberships { get; set; } = new();
-    public virtual List<SquadVote> SquadVotes { get; set; } = new();
-    public virtual List<QuestVote> QuestVotes { get; set; } = new();
+    public virtual List<Membership> Memberships { get; set; } = [];
+    public virtual List<SquadVote> SquadVotes { get; set; } = [];
+    public virtual List<QuestVote> QuestVotes { get; set; } = [];
 
 
 }

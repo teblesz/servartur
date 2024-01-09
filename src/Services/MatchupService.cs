@@ -112,7 +112,7 @@ public class MatchupService : IMatchupService
         }
         // TODO here assign Roles to players using RolesMapping class
         //DUMMY:
-        List<Role?> roleAssignment = new() { Role.Merlin, Role.Assassin };
+        List<Role?> roleAssignment = [Role.Merlin, Role.Assassin];
         roleAssignment.Insert(numberOfPlayers - 2, null);
         roleAssignment.Shuffle();
         foreach (var player in room.Players)
