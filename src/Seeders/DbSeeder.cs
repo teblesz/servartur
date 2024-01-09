@@ -53,140 +53,138 @@ public class DbSeeder
 
     private List<Player> getPlayers(List<Room> rooms)
     {
-        return
-                [
-                    new Player()
-                    {
-                        Nick = "michal",
-                        Team = Team.Evil,
-                        Role = Role.Assassin,
-                        RoomId = rooms[0].RoomId,
-                    },
-                    new Player()
-                    {
-                        Nick = "kamil",
-                        Team = Team.Good,
-                        Role = Role.Merlin,
-                        RoomId = rooms[0].RoomId,
-                    },
-                    new Player()
-                    {
-                        Nick = "janek",
-                        Team = Team.Evil,
-                        Role = Role.Morgana,
-                        RoomId = rooms[0].RoomId,
-                    },
-                    new Player()
-                    {
-                        Nick = "jedrek",
-                        Team = Team.Good,
-                        Role = Role.Percival,
-                        RoomId = rooms[0].RoomId,
-                    },
-                    new Player()
-                    {
-                        Nick = "szymon",
-                        Team = Team.Good,
-                        Role = null,
-                        RoomId = rooms[0].RoomId,
-                    },
+        return [
+            new Player()
+            {
+                Nick = "michal",
+                Team = Team.Evil,
+                Role = Role.Assassin,
+                RoomId = rooms[0].RoomId,
+            },
+            new Player()
+            {
+                Nick = "kamil",
+                Team = Team.Good,
+                Role = Role.Merlin,
+                RoomId = rooms[0].RoomId,
+            },
+            new Player()
+            {
+                Nick = "janek",
+                Team = Team.Evil,
+                Role = Role.Morgana,
+                RoomId = rooms[0].RoomId,
+            },
+            new Player()
+            {
+                Nick = "jedrek",
+                Team = Team.Good,
+                Role = Role.Percival,
+                RoomId = rooms[0].RoomId,
+            },
+            new Player()
+            {
+                Nick = "szymon",
+                Team = Team.Good,
+                Role = null,
+                RoomId = rooms[0].RoomId,
+            },
 
-                    new Player()
-                    {
-                        Nick = "michal_1",
-                        Team = Team.Good,
-                        Role = Role.Merlin,
-                        RoomId = rooms[1].RoomId,
-                    },
-                    new Player()
-                    {
-                        Nick = "kamil_1",
-                        Team = Team.Evil,
-                        Role = Role.Assassin,
-                        RoomId = rooms[1].RoomId,
-                    },
-                    new Player()
-                    {
-                        Nick = "janek_1",
-                        Team = Team.Good,
-                        Role = Role.Percival,
-                        RoomId = rooms[1].RoomId,
-                    },
-                    new Player()
-                    {
-                        Nick = "jedrek_1",
-                        Team = Team.Good,
-                        Role = null,
-                        RoomId = rooms[1].RoomId,
-                    },
-                    new Player()
-                    {
-                        Nick = "szymon_1",
-                        Team = Team.Evil,
-                        Role = Role.Morgana,
-                        RoomId = rooms[1].RoomId,
-                    },
-                ];
+            new Player()
+            {
+                Nick = "michal_1",
+                Team = Team.Good,
+                Role = Role.Merlin,
+                RoomId = rooms[1].RoomId,
+            },
+            new Player()
+            {
+                Nick = "kamil_1",
+                Team = Team.Evil,
+                Role = Role.Assassin,
+                RoomId = rooms[1].RoomId,
+            },
+            new Player()
+            {
+                Nick = "janek_1",
+                Team = Team.Good,
+                Role = Role.Percival,
+                RoomId = rooms[1].RoomId,
+            },
+            new Player()
+            {
+                Nick = "jedrek_1",
+                Team = Team.Good,
+                Role = null,
+                RoomId = rooms[1].RoomId,
+            },
+            new Player()
+            {
+                Nick = "szymon_1",
+                Team = Team.Evil,
+                Role = Role.Morgana,
+                RoomId = rooms[1].RoomId,
+            },
+        ];
     }
     private List<Squad> getSquads(List<Room> rooms, List<Player> players)
     {
-        return
-                [
-                    new Squad()
-                    {
-                        QuestNumber = 1,
-                        RoundNumber = 1,
-                        RequiredPlayersNumber = 2,
-                        Status = SquadStatus.Rejected,
-                        Leader = players[0],
-                        RoomId = rooms[0].RoomId,
-                    },
-                    new Squad()
-                    {
-                        QuestNumber = 1,
-                        RoundNumber = 2,
-                        RequiredPlayersNumber = 2,
-                        Status = SquadStatus.Successfull,
-                        Leader = players[1],
-                        RoomId = rooms[0].RoomId,
-                    },
-                    new Squad()
-                    {
-                        QuestNumber = 2,
-                        RoundNumber = 3,
-                        RequiredPlayersNumber = 3,
-                        Status = SquadStatus.Failed,
-                        Leader = players[2],
-                        RoomId = rooms[0].RoomId,
-                    },
-                    new Squad()
-                    {
-                        QuestNumber = 3,
-                        RoundNumber = 4,
-                        RequiredPlayersNumber = 2,
-                        Status = SquadStatus.Failed,
-                        Leader = players[3],
-                        RoomId = rooms[0].RoomId,
-                    },
-                    new Squad()
-                    {
-                        QuestNumber = 4,
-                        RoundNumber = 5,
-                        RequiredPlayersNumber = 2,
-                        Status = SquadStatus.Successfull,
-                        Leader = players[4],
-                        RoomId = rooms[0].RoomId,
-                    },
-                    new Squad()
-                    {
-                        QuestNumber = 5,
-                        RoundNumber = 6,
-                        RequiredPlayersNumber = 3,
-                        Status = SquadStatus.Successfull,
-                        Leader = players[0],
-                        RoomId = rooms[0].RoomId,
-                    },
-                ];
+        return [
+            new Squad()
+            {
+                QuestNumber = 1,
+                RoundNumber = 1,
+                RequiredPlayersNumber = 2,
+                Status = SquadStatus.Rejected,
+                Leader = players[0],
+                RoomId = rooms[0].RoomId,
+            },
+            new Squad()
+            {
+                QuestNumber = 1,
+                RoundNumber = 2,
+                RequiredPlayersNumber = 2,
+                Status = SquadStatus.Successfull,
+                Leader = players[1],
+                RoomId = rooms[0].RoomId,
+            },
+            new Squad()
+            {
+                QuestNumber = 2,
+                RoundNumber = 3,
+                RequiredPlayersNumber = 3,
+                Status = SquadStatus.Failed,
+                Leader = players[2],
+                RoomId = rooms[0].RoomId,
+            },
+            new Squad()
+            {
+                QuestNumber = 3,
+                RoundNumber = 4,
+                RequiredPlayersNumber = 2,
+                Status = SquadStatus.Failed,
+                Leader = players[3],
+                RoomId = rooms[0].RoomId,
+            },
+            new Squad()
+            {
+                QuestNumber = 4,
+                RoundNumber = 5,
+                RequiredPlayersNumber = 2,
+                Status = SquadStatus.Successfull,
+                Leader = players[4],
+                RoomId = rooms[0].RoomId,
+            },
+            new Squad()
+            {
+                QuestNumber = 5,
+                RoundNumber = 6,
+                RequiredPlayersNumber = 3,
+                Status = SquadStatus.Successfull,
+                Leader = players[0],
+                RoomId = rooms[0].RoomId,
+            },
+        ];
     }
 
     private static List<Room> fillRooms(List<Room> rooms, List<Player> players, List<Squad> squads)
@@ -217,8 +215,7 @@ public class DbSeeder
 
     private List<Membership> getMemberships(List<Player> players, List<Squad> squads)
     {
-        return
-        [
+        return [
             new Membership() { Squad = squads[0], Player = players[0] },
             new Membership() { Squad = squads[0], Player = players[1] },
 
@@ -243,8 +240,7 @@ public class DbSeeder
 
     private List<QuestVote> getQuestVotes(List<Player> players, List<Squad> squads)
     {
-        return
-        [
+        return [
             new QuestVote() { Squad = squads[1], Player = players[1], Value = true },
             new QuestVote() { Squad = squads[1], Player = players[3], Value = true },
 
@@ -266,8 +262,7 @@ public class DbSeeder
 
     private List<SquadVote> getSquadVotes(List<Player> players, List<Squad> squads)
     {
-        return
-        [
+        return [
             new SquadVote() { Squad = squads[0], Player = players[0], Value = true },
             new SquadVote() { Squad = squads[0], Player = players[1], Value = true },
             new SquadVote() { Squad = squads[0], Player = players[2], Value = false },

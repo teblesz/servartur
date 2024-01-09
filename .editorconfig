@@ -4,3 +4,12 @@ dotnet_diagnostic.IDE0039.severity = silent
 
 # IDE0290: Use primary constructor
 dotnet_diagnostic.IDE0290.severity = silent
+
+# CA2254: Template should be a static expression
+dotnet_diagnostic.CA2254.severity = silent
+
+# IDE0270: Use coalesce expression
+dotnet_diagnostic.IDE0270.severity = silent
+
+# IDE0090: Use 'new(...)'
+dotnet_diagnostic.IDE0090.severity = silent

@@ -26,9 +26,9 @@ public static class PlayerNumberCalculator
         if (!IsQuestNumberValid(questNumber))
             throw new ArgumentException("Invalid quest number given");
 
-        return squadRequiredSizes[playersCount - 5, questNumber - 1];
+        return _squadRequiredSizes[playersCount - 5, questNumber - 1];
     }
-    private static readonly int[,] squadRequiredSizes = new int[,]
+    private static readonly int[,] _squadRequiredSizes = new int[,]
     {
         {2, 3, 2, 3, 3}, // 5 players
         {2, 3, 4, 3, 4}, // 6 players

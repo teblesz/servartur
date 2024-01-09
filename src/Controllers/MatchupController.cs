@@ -11,24 +11,24 @@ namespace servartur.Controllers;
 [Route("api/[controller]")]
 public class MatchupController : ControllerBase
 {
-    private readonly IMatchupService matchupService;
+    private readonly IMatchupService _matchupService;
 
     public MatchupController(IMatchupService matchupService)
     {
-        this.matchupService = matchupService;
+        this._matchupService = matchupService;
     }
 
     [HttpPost]
     public ActionResult CreateRoom([FromBody] CreateRoomDto dto)
     {
-        var roomId = matchupService.CreateRoom(dto);
+        var roomId = _matchupService.CreateRoom(dto);
         return Created($"/api/rooms/{roomId}", null);
     }
 
     [HttpGet("{id}")]
     public ActionResult<RoomDto> GetRoomById([FromRoute] int id)
     {
-        var room = matchupService.GetById(id);
+        var room = _matchupService.GetById(id);
         return room == null ? NotFound() : Ok(room);
     }
 
@@ -36,14 +36,14 @@ public class MatchupController : ControllerBase
     [HttpPost("player")]
     public ActionResult CreatePlayer([FromBody] CreatePlayerDto dto)
     {
-        var playerId = matchupService.CreatePlayer(dto);
+        var playerId = _matchupService.CreatePlayer(dto);
         return Created($"/api/rooms/player/{playerId}", null);
     }
 
     [HttpDelete("player/{id}")]
     public ActionResult RemovePlayer([FromRoute] int id)
     {
-        matchupService.RemovePlayer(id);
+        _matchupService.RemovePlayer(id);
         return NoContent();
     }
 
@@ -53,7 +53,7 @@ public class MatchupController : ControllerBase
     [HttpPut("makeTeams/{roomId}")]
     public ActionResult MakeTeams([FromRoute] int roomId)
     {    
-        matchupService.MakeTeams(roomId);
+        _matchupService.MakeTeams(roomId);
         return NoContent();
     }
 }
