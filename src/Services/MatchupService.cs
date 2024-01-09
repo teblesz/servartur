@@ -53,13 +53,18 @@ public class MatchupService : IMatchupService
         if (room == null) 
             return null;
 
+        // TODO send also IsFull info
         var result = _mapper.Map<RoomDto>(room);
         return result;
     }
     public int CreatePlayer(CreatePlayerDto dto)
     {
-        if (!_dbContext.Rooms.Any(r => r.RoomId == dto.RoomId))
-            throw new RoomNotFoundException(dto.RoomId);
+        var room = _dbContext.Rooms.FirstOrDefault(r => r.RoomId == dto.RoomId)
+            ?? throw new RoomNotFoundException(dto.RoomId);
+        if (room.Status != RoomStatus.Matchup)
+            throw new RoomNotInMatchupException(dto.RoomId);
+        if (!PlayerNumberCalculator.IsPlayerCountLessThanMax(room.Players.Count))
+            throw new RoomIsFullException(dto.RoomId);
 
         var player = _mapper.Map<Player>(dto);
         _dbContext.Players.Add(player);

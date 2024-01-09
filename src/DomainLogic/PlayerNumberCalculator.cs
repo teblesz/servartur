@@ -1,7 +1,11 @@
 ﻿namespace servartur.DomainLogic;
-
+/// <summary>
+/// Handles game rules related to bounds of number of players
+/// </summary>
 public static class PlayerNumberCalculator
 {
+    public static bool IsPlayerCountLessThanMax(int playersCount)
+    => playersCount < 10;
     public static bool IsPlayerCountValid(int playersCount)
     => playersCount >= 5 && playersCount <= 10;
     public static bool IsQuestNumberValid(int questNumber)
