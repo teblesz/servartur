@@ -7,12 +7,13 @@ public class EntityNotFoundException : Exception
 }
 public class RoomNotFoundException : EntityNotFoundException
 {
+    /// <param name="roomId">Id of the room that was not found.</param>
     public RoomNotFoundException(int roomId)
         : base("Room", roomId) { }
 }
-
 public class PlayerNotFoundException : EntityNotFoundException
 {
+    /// <param name="playerId">Id of the player that was not found.</param>
     public PlayerNotFoundException(int playerId)
         : base("Player", playerId) { }
 }
